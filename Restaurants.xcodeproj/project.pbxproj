@@ -13,6 +13,7 @@
 		6524C96C1E43599A00E518A5 /* Restaurants.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6524C96A1E43599A00E518A5 /* Restaurants.xcdatamodeld */; };
 		6524C96E1E43599A00E518A5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6524C96D1E43599A00E518A5 /* Assets.xcassets */; };
 		6524C9711E43599A00E518A5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6524C96F1E43599A00E518A5 /* LaunchScreen.storyboard */; };
+		6524C9791E435CB000E518A5 /* RestaurantTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6524C9781E435CB000E518A5 /* RestaurantTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		6524C96D1E43599A00E518A5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6524C9701E43599A00E518A5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6524C9721E43599A00E518A5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6524C9781E435CB000E518A5 /* RestaurantTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 				6524C9631E43599A00E518A5 /* AppDelegate.swift */,
 				6524C9651E43599A00E518A5 /* ViewController.swift */,
 				6524C9671E43599A00E518A5 /* Main.storyboard */,
+				6524C9781E435CB000E518A5 /* RestaurantTableViewCell.swift */,
 				6524C96D1E43599A00E518A5 /* Assets.xcassets */,
 				6524C96F1E43599A00E518A5 /* LaunchScreen.storyboard */,
 				6524C9721E43599A00E518A5 /* Info.plist */,
@@ -140,6 +143,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6524C9791E435CB000E518A5 /* RestaurantTableViewCell.swift in Sources */,
 				6524C9661E43599A00E518A5 /* ViewController.swift in Sources */,
 				6524C9641E43599A00E518A5 /* AppDelegate.swift in Sources */,
 				6524C96C1E43599A00E518A5 /* Restaurants.xcdatamodeld in Sources */,
