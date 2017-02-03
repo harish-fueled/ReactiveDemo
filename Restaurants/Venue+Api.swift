@@ -16,13 +16,30 @@ extension Venue {
 		              "v": "20161215",
 		              "ll": "28.535516,77.391026",
 		              "section": "food",
-		              "limit": "50",
+		              "limit": "5",
 		              "sortByDistance": "1"]
+		
 		return StoreApiClient.sharedClient.GET(path: "venues/explore" , parameters: params as [String : AnyObject]?).then { result in
-			guard let result = result as? [String: Any], let responseData = result["data"] as? [String: Any] else {
+			guard let result = result as? [String: Any], let responseData = result["response"] as? [String: Any] else {
 				return Promise(value: "error")
 			}
-			print("fetchFoursquareVenues response : \(responseData)")
+			guard let groups = responseData["groups"] as? [[String: Any]] else {
+				return Promise(value: "error")
+			}
+			guard let groupsFirstObject = groups.first! as? [String: Any] else {
+				return Promise(value: "error")
+			}
+			guard let items = groupsFirstObject["items"] as? [[String: Any]] else {
+				return Promise(value: "error")
+			}
+			
+			print("fetchFoursquareVenues response : \(items)")
+			var restaurants = [Restaurant]()
+			for item in items {
+				let restaurant = Restaurant(data: item)
+				restaurants.append(restaurant)
+			}
+			print("restaurants : \(restaurants)")
 			return Promise(value: "success")
 		}
 	}
