@@ -12,18 +12,15 @@ class ViewController: UIViewController {
 
 	@IBOutlet weak var tableView: UITableView!
 	
-	fileprivate var dataSource = ["test", "test", "test", "test", "test", "test", "test", "test"]
+	fileprivate var dataSource = [Restaurant]()
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		// Do any additional setup after loading the view, typically from a nib.
 		configureTableView()
-		let _ = Venue.fetchFoursquareVenues().then { result -> Void in
-			if result == "error" {
-				print("error")
-			} else {
-				print("stores fetched")
-			}
+		let _ = Venue.fetchFoursquareVenues().then { restaurants -> Void in
+			self.dataSource = restaurants
+			self.tableView.reloadData()
 		}
 	}
 	
