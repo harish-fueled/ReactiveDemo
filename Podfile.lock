@@ -1,5 +1,16 @@
 PODS:
   - Alamofire (4.3.0)
+  - PromiseKit (4.1.7):
+    - PromiseKit/Foundation (= 4.1.7)
+    - PromiseKit/QuartzCore (= 4.1.7)
+    - PromiseKit/UIKit (= 4.1.7)
+  - PromiseKit/CorePromise (4.1.7)
+  - PromiseKit/Foundation (4.1.7):
+    - PromiseKit/CorePromise
+  - PromiseKit/QuartzCore (4.1.7):
+    - PromiseKit/CorePromise
+  - PromiseKit/UIKit (4.1.7):
+    - PromiseKit/CorePromise
   - ReactiveCocoa (5.0.0):
     - ReactiveSwift (~> 1.0.0)
   - ReactiveSwift (1.0.0):
@@ -8,14 +19,16 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 4.3)
+  - PromiseKit (~> 4.1)
   - ReactiveCocoa (~> 5.0)
 
 SPEC CHECKSUMS:
   Alamofire: 856a113053a7bc9cbe5d6367a555d773fc5cfef7
+  PromiseKit: 779f2e41faf62d854e7593026ddbcb0bb5c5002d
   ReactiveCocoa: 60ef0da915b4f70c34ebecc3f4fb8f96af0e53d6
   ReactiveSwift: f391724ee318a2cfd3e37dfb041cd49ecf4e7869
   Result: 4e3ed5995ed94d0cd6a09be9a431fce3f3624bbf
 
-PODFILE CHECKSUM: cfffd524a346f203ba0cc4d2bc86facecccf01c1
+PODFILE CHECKSUM: 381f5c61bcc83797e8b15ef84391e1127fe9f1d6
 
 COCOAPODS: 1.2.0.beta.3

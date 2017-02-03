@@ -90,12 +90,14 @@ strip_invalid_archs() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/Alamofire/Alamofire.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/PromiseKit/PromiseKit.framework"
   install_framework "$BUILT_PRODUCTS_DIR/ReactiveCocoa/ReactiveCocoa.framework"
   install_framework "$BUILT_PRODUCTS_DIR/ReactiveSwift/ReactiveSwift.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Result/Result.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/Alamofire/Alamofire.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/PromiseKit/PromiseKit.framework"
   install_framework "$BUILT_PRODUCTS_DIR/ReactiveCocoa/ReactiveCocoa.framework"
   install_framework "$BUILT_PRODUCTS_DIR/ReactiveSwift/ReactiveSwift.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Result/Result.framework"
