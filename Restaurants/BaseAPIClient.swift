@@ -264,14 +264,11 @@ class BaseAPIClient {
 			promise: Promise { fulfill, reject in
 				request.responseJSON { response in
 					UIApplication.shared.isNetworkActivityIndicatorVisible = false
-					RALog(message: "Response received \(methodName) \(path)")
+					print("Response received \(methodName) \(path)")
 					if let error = response.result.error {
 							reject(APIError.BadStatusCode(statusCode: response.response?.statusCode ?? 0, message: error.localizedDescription))
 					} else {
-						if let _ = self as? FlyerKitAPIClient {
-						} else {
-						}
-						RALog(message: "Returned JSON \(response.result.value)")
+						print("Returned JSON \(response.result.value)")
 						if let httpResponse = response.response {
 							if httpResponse.statusCode >= 200 && httpResponse.statusCode <= 299 {
 								fulfill(response.result.value as AnyObject?)
