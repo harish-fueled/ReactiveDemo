@@ -9,7 +9,7 @@
 import Foundation
 import PromiseKit
 
-extension Venue {
+extension Restaurant {
 	static func fetchFoursquareVenues() ->  Promise<[Restaurant]> {
 		let params = ["client_id": "5AYW35NKNLOX3RQTSRUXBXLBF5IA1DJHWNZXC4KPHV1XZ4W4",
 		              "client_secret": "X1BBQH5YDRZSRGJS3G5U5EVKUKTPZXKDXIENXTVINABGXPOL",

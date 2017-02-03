@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class RestaurantsViewController: UIViewController {
 
 	@IBOutlet weak var tableView: UITableView!
 	
@@ -18,7 +18,7 @@ class ViewController: UIViewController {
 		super.viewDidLoad()
 		// Do any additional setup after loading the view, typically from a nib.
 		configureTableView()
-		let _ = Venue.fetchFoursquareVenues().then { restaurants -> Void in
+		let _ = Restaurant.fetchFoursquareVenues().then { restaurants -> Void in
 			self.dataSource = restaurants
 			self.tableView.reloadData()
 		}
@@ -30,7 +30,7 @@ class ViewController: UIViewController {
 	}
 }
 
-extension ViewController: UITableViewDataSource {
+extension RestaurantsViewController: UITableViewDataSource {
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return dataSource.count
 	}
@@ -43,7 +43,7 @@ extension ViewController: UITableViewDataSource {
 	}
 }
 
-extension ViewController: UITableViewDelegate {
+extension RestaurantsViewController: UITableViewDelegate {
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		let restaurant = dataSource[indexPath.row]
 		print("Selected Restaurant : \(restaurant)")
