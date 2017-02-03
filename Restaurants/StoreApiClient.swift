@@ -8,7 +8,7 @@ import Foundation
 
 class StoreApiClient: BaseAPIClient {
 
-	static let sharedClient = StoreApiClient(baseURL: Configuration.StoreLocatorBaseURL)
+	static let sharedClient = StoreApiClient(baseURL: Configuration.FourSquareBaseURL)
 	override func willEncodeRequest(request: NSMutableURLRequest) {
 		
 	}
