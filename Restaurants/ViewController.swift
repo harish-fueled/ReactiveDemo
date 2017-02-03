@@ -7,15 +7,6 @@
 //
 
 import UIKit
-//
-//let listUrlString =  "https://api.foursquare.com/v2/venues/explore?client_id=5AYW35NKNLOX3RQTSRUXBXLBF5IA1DJHWNZXC4KPHV1XZ4W4&client_secret=X1BBQH5YDRZSRGJS3G5U5EVKUKTPZXKDXIENXTVINABGXPOL&v=20130815&ll=28.535516,77.391026&section=food&limit=50&sortByDistance=1"
-//let myUrl = NSURL(string: listUrlString);
-//let request: NSMutableURLRequest = NSMutableURLRequest()
-//request.URL = myUrl
-//request.HTTPMethod = "GET"
-//request.cachePolicy = NSURLRequestCachePolicy.ReloadIgnoringLocalCacheData
-//request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-
 
 class ViewController: UIViewController {
 
@@ -27,6 +18,13 @@ class ViewController: UIViewController {
 		super.viewDidLoad()
 		// Do any additional setup after loading the view, typically from a nib.
 		configureTableView()
+		let _ = Venue.fetchFoursquareVenues().then { result -> Void in
+			if result == "error" {
+				print("error")
+			} else {
+				print("stores fetched")
+			}
+		}
 	}
 	
 	private func configureTableView() {

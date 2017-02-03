@@ -21,6 +21,18 @@ protocol DataConvertible {
 extension Alamofire.Request: CancellableRequest {
 	
 }
+enum APIError: Error {
+	case InvalidRequest
+	case RequestFailed(message: String?)
+	case InternetUnreachable
+	case UserNotAuthenticated
+	case InvalidResponse
+	case NotImplementedYet
+	case BadStatusCode(statusCode: Int, message: String?)
+	case EmailAlreadyExists
+	case LocationAccessDenied
+	case LocationServicesDisabled
+}
 
 /**
 *  Abstraction layer around Alamofire.
@@ -51,19 +63,6 @@ class BaseAPIClient {
 		}
 	}
 	
-	enum APIError: Error {
-		case InvalidRequest
-		case RequestFailed(message: String?)
-		case InternetUnreachable
-		case UserNotAuthenticated
-		case InvalidResponse
-		case NotImplementedYet
-		case BadStatusCode(statusCode: Int, message: String?)
-		case EmailAlreadyExists
-		case LocationAccessDenied
-		case LocationServicesDisabled
-	}
-	
 	struct MultipartBodyPart {
 		var name: String
 		var data: DataConvertible
@@ -87,51 +86,51 @@ class BaseAPIClient {
 		self.baseURL = baseURL
 	}
 	
-	func GET(path: String, parameters: [String: AnyObject]? = nil) -> Promise<AnyObject?> {
+	func GET(path: String, parameters: [String: Any]? = nil) -> Promise<Any?> {
 		return self.doRequest(method: .get, path: path, parameters: parameters).promise
 	}
 	
-	func POST(path: String, parameters: [String: AnyObject]? = nil) -> Promise<AnyObject?> {
+	func POST(path: String, parameters: [String: Any]? = nil) -> Promise<Any?> {
 		return self.doRequest(method: .post, path: path, parameters: parameters).promise
 	}
 	
-	func DELETE(path: String, parameters: [String: AnyObject]? = nil) -> Promise<AnyObject?> {
+	func DELETE(path: String, parameters: [String: Any]? = nil) -> Promise<Any?> {
 		return self.doRequest(method: .delete, path: path, parameters: parameters).promise
 	}
 	
-	func PUT(path: String, parameters: [String: AnyObject]? = nil) -> Promise<AnyObject?> {
+	func PUT(path: String, parameters: [String: Any]? = nil) -> Promise<Any?> {
 		return self.doRequest(method: .put, path: path, parameters: parameters).promise
 	}
 	
-	func PATCH(path: String, parameters: [String: AnyObject]? = nil) -> Promise<AnyObject?> {
+	func PATCH(path: String, parameters: [String: Any]? = nil) -> Promise<Any?> {
 		return self.doRequest(method: .patch, path: path, parameters: parameters).promise
 	}
 	
-	func cancellableGET(path: String, parameters: [String: AnyObject]? = nil) -> (promise: Promise<AnyObject?>, request: CancellableRequest) {
+	func cancellableGET(path: String, parameters: [String: Any]? = nil) -> (promise: Promise<Any?>, request: CancellableRequest) {
 		return self.doRequest(method: .get, path: path, parameters: parameters)
 	}
 	
-	func cancellablePOST(path: String, parameters: [String: AnyObject]? = nil) -> (promise: Promise<AnyObject?>, request: CancellableRequest) {
+	func cancellablePOST(path: String, parameters: [String: Any]? = nil) -> (promise: Promise<Any?>, request: CancellableRequest) {
 		return self.doRequest(method: .post, path: path, parameters: parameters)
 	}
 	
-	func cancellableDELETE(path: String, parameters: [String: AnyObject]? = nil) -> (promise: Promise<AnyObject?>, request: CancellableRequest) {
+	func cancellableDELETE(path: String, parameters: [String: Any]? = nil) -> (promise: Promise<Any?>, request: CancellableRequest) {
 		return self.doRequest(method: .delete, path: path, parameters: parameters)
 	}
 	
-	func cancellablePUT(path: String, parameters: [String: AnyObject]? = nil) -> (promise: Promise<AnyObject?>, request: CancellableRequest) {
+	func cancellablePUT(path: String, parameters: [String: Any]? = nil) -> (promise: Promise<Any?>, request: CancellableRequest) {
 		return self.doRequest(method: .put, path: path, parameters: parameters)
 	}
 	
-	func cancellablePATCH(path: String, parameters: [String: AnyObject]? = nil) -> (promise: Promise<AnyObject?>, request: CancellableRequest) {
+	func cancellablePATCH(path: String, parameters: [String: Any]? = nil) -> (promise: Promise<Any?>, request: CancellableRequest) {
 		return self.doRequest(method: .patch, path: path, parameters: parameters)
 	}
 	
-	func uploadMultipartData(path: String, parameter: MultipartBodyPart) -> Promise<AnyObject?> {
+	func uploadMultipartData(path: String, parameter: MultipartBodyPart) -> Promise<Any?> {
 		return self.uploadMultipartData(path: path, parameters: [parameter])
 	}
 	
-	func uploadMultipartData(path: String, parameters: [MultipartBodyPart]) -> Promise<AnyObject?> {
+	func uploadMultipartData(path: String, parameters: [MultipartBodyPart]) -> Promise<Any?> {
 		let request = requestForMethod(method: .post, path: path)
 		return Promise { fulfill, reject in
 			Alamofire.upload(multipartFormData: { multipartFormData in
@@ -160,13 +159,13 @@ class BaseAPIClient {
 		}
 	}
 	
-	private func queryComponents(key: String, _ value: AnyObject) -> [(String, String)] {
+	private func queryComponents(key: String, _ value: Any) -> [(String, String)] {
 		var components: [(String, String)] = []
-		if let dictionary = value as? [String: AnyObject] {
+		if let dictionary = value as? [String: Any] {
 			for (nestedKey, value) in dictionary {
 				components += queryComponents(key: "\(key)[\(nestedKey)]", value)
 			}
-		} else if let array = value as? [AnyObject] {
+		} else if let array = value as? [Any] {
 			for value in array {
 				components += queryComponents(key: "\(key)[]", value)
 			}
@@ -184,8 +183,7 @@ class BaseAPIClient {
 	}
 	
 	private func doRequest(method: Method,
-	                       path: String,
-	                       parameters: [String: AnyObject]? = nil) -> (promise: Promise<AnyObject?>, request: CancellableRequest) {
+	                       path: String, parameters: [String: Any]? = nil) -> (promise: Promise<Any?>, request: CancellableRequest) {
 		
 		UIApplication.shared.isNetworkActivityIndicatorVisible = true
 		let request = requestForMethod(method: method, path: path, parameters: parameters)
@@ -203,14 +201,14 @@ class BaseAPIClient {
 		default:
 			methodName = "[UNKNOWN]"
 		}
-		debugPrint("\(methodName) \(path)")
+		print("\(methodName) \(path)")
 		if method == .get {
 			var parametersString: String?
 			if let parameters = parameters {
 				var components: [(String, String)] = []
 				for key in Array(parameters.keys).sorted(by: <) {
-					let value: AnyObject! = parameters[key]
-					components += self.queryComponents(key: key, value)
+					let value = parameters[key]
+					components += self.queryComponents(key: key, value!)
 				}
 				parametersString = components.map { "\($0)=\($1)" } .joined(separator: "&")
 			} else {
@@ -218,7 +216,7 @@ class BaseAPIClient {
 			}
 			
 			if let parametersString = parametersString, !parametersString.isEmpty {
-				debugPrint("\(parametersString.removingPercentEncoding)")
+				print( "\(parametersString.removingPercentEncoding)")
 			}
 		} else {
 			var parametersString: String?
@@ -231,48 +229,53 @@ class BaseAPIClient {
 				}
 			}
 			let parameters = parametersString ?? "(empty)"
-			debugPrint("JSON: \(parameters.removingPercentEncoding)")
+			print( "JSON: \(parameters.removingPercentEncoding)")
 		}
 		let alamoFireRequest = Alamofire.request(request as URLRequestConvertible)
 		return self.handleRequestResponse(methodName: methodName, path, alamoFireRequest)
 	}
 	
-	func willEncodeRequest(request: NSMutableURLRequest) {
-		debugPrint("Encoded Request: \(request)")
+	func willEncodeRequest(request: inout URLRequest) {
+		print( "Encoded Request: \(request)")
 	}
 	
 	func didEncodeRequest(request: URLRequest) {
-		debugPrint("decoded Request: \(request)")
+		print( "decoded Request: \(request)")
 	}
 	
-	func handleErrorResponse(response: [String: AnyObject], errorCode: Int) -> APIError {
+	func handleErrorResponse(response: [String: Any], errorCode: Int) -> APIError {
 		return APIError.NotImplementedYet
 	}
 	
-	private func requestForMethod(method: Method, path: String, parameters: [String: AnyObject]? = nil) -> URLRequest {
-		let mutableURLRequest = NSMutableURLRequest(url: URL(string: self.baseURL + path)!)
+	private func requestForMethod(method: Method, path: String, parameters: [String: Any]? = nil) -> URLRequest {
+		
+		var urlString = self.baseURL + path
+		urlString = urlString.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)!
+		let url =  URL(string: urlString)!
+		var mutableURLRequest = URLRequest(url: url)
 		mutableURLRequest.httpMethod = method.toAFMethod().rawValue
-		self.willEncodeRequest(request: mutableURLRequest)
-		let encoding: ParameterEncoding = method == .get ? URLEncoding.httpBody : JSONEncoding.default
-		let dataRequest: DataRequest = Alamofire.request(path, method: method.toAFMethod(), parameters: parameters, encoding: encoding, headers: nil)
-		self.didEncodeRequest(request: dataRequest.request!)
-		return dataRequest.request!
+		self.willEncodeRequest(request: &mutableURLRequest)
+		
+		let encoding: ParameterEncoding = (method == .get ? URLEncoding.methodDependent : JSONEncoding.default)
+		let request = try! encoding.encode(mutableURLRequest, with: parameters)
+		self.didEncodeRequest(request: request)
+		return request
 	}
-
-	private func handleRequestResponse(methodName: String, _ path: String, _ request: DataRequest) -> (promise: Promise<AnyObject?>, request: CancellableRequest) {
+	
+	private func handleRequestResponse(methodName: String, _ path: String, _ request: DataRequest) -> (promise: Promise<Any?>, request: CancellableRequest) {
 		return (
 			promise: Promise { fulfill, reject in
 				request.responseJSON { response in
 					UIApplication.shared.isNetworkActivityIndicatorVisible = false
-					print("Response received \(methodName) \(path)")
+					print("Response received \(methodName) \(path), \(response)")
 					if let error = response.result.error {
-							reject(APIError.BadStatusCode(statusCode: response.response?.statusCode ?? 0, message: error.localizedDescription))
+						reject(APIError.BadStatusCode(statusCode: response.response?.statusCode ?? 0, message: error.localizedDescription))
 					} else {
 						print("Returned JSON \(response.result.value)")
 						if let httpResponse = response.response {
 							if httpResponse.statusCode >= 200 && httpResponse.statusCode <= 299 {
-								fulfill(response.result.value as AnyObject?)
-							} else if let responseResultDictionary = response.result.value as? [String: AnyObject] {
+								fulfill(response.result.value)
+							} else if let responseResultDictionary = response.result.value as? [String: Any] {
 								if let error = responseResultDictionary["error"] as? String {
 									reject(APIError.BadStatusCode(statusCode: httpResponse.statusCode, message: error))
 								} else {
@@ -281,7 +284,7 @@ class BaseAPIClient {
 								}
 							}
 						} else {
-							fulfill(response.result.value as AnyObject?)
+							fulfill(response.result.value)
 						}
 					}
 				}

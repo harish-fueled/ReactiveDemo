@@ -9,11 +9,11 @@ import Foundation
 class StoreApiClient: BaseAPIClient {
 
 	static let sharedClient = StoreApiClient(baseURL: Configuration.FourSquareBaseURL)
-	override func willEncodeRequest(request: NSMutableURLRequest) {
+	override func willEncodeRequest(request: inout URLRequest) {
 		
 	}
 
-	override func handleErrorResponse(response: [String: AnyObject], errorCode: Int) -> APIError {
+	override func handleErrorResponse(response: [String: Any], errorCode: Int) -> APIError {
 		if let error = response["error"] as? String {
 			return APIError.BadStatusCode(statusCode: errorCode, message: error)
 		}
