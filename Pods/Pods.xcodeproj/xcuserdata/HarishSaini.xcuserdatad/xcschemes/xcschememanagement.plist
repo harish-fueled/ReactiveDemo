@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Alamofire.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-Restaurants.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -27,22 +32,27 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>55D19C305E4D06EA77D7EE9BD3071E64</key>
+		<key>18C7AC51780E531F92CE884D7A04E68B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>58278966796DBAC02A4DC8C88C4C779A</key>
+		<key>2D56F173437A91E6534648158C348F5F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>78F05ECF4A01DCC50ABC4B9F31E659DC</key>
+		<key>3A5C00AC308DB87B6AB720D618D4EA9D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7E401D57CF1348D71C9ED4D899826876</key>
+		<key>88E9EC28B8B46C3631E6B242B50F4442</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>9E502334A59C15A4B737B8474C8728E7</key>
 		<dict>
 			<key>primary</key>
 			<true/>
