@@ -11,11 +11,11 @@ import SwiftyJSON
 import CoreData
 
 final class FoursquareRestaurantsResponse {
-	var user: User?
+//	var user: User?
 }
 
 extension FoursquareRestaurantsResponse: JSONParsing {
-	static func parse (json: JSON, context: NSManagedObjectContext, completionBlock: @escaping ((SignUpResponse?, NSError?) -> Void)) {
+	static func parse (json: JSON, context: NSManagedObjectContext, completionBlock: @escaping ((FoursquareRestaurantsResponse?, NSError?) -> Void)) {
 //		let responseObject = SignUpResponse()
 //		if json[APIKeys.Message].error != nil {
 //			User.parse(json: json, context: context, completionBlock: { (user, error) in

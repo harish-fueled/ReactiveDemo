@@ -9,6 +9,7 @@
 import ReactiveSwift
 
 final class RestaurantsViewModel {
+	var dataSource = [Restaurant]()
 	
 	func fetchFoursquareVenues() -> SignalProducer<FoursquareRestaurantsResponse, NSError> {
 		return SignalProducer { sink, disposable in
@@ -22,15 +23,21 @@ final class RestaurantsViewModel {
 				
 //				let _ = Restaurant.fetchFoursquareVenues().then { restaurants -> Void in
 //					self.dataSource = restaurants
-//					self.tableView.reloadData()
-//				}
-
-				APIInterface.shared.loginUser(with: email, and: password).startWithResult { loginResult in
+//					sink.send(value: loginResult.value!)
+//					sink.sendCompleted()
+//
+////					self.tableView.reloadData()
+//				}.catch(execute: { error in
+//					sink.send(error: error)
+//					return
+//				})
+				APIInterface.shared.fetchFoursquareRestaurants().startWithResult{ result in
+//				APIInterface.shared.loginUser(with: email, and: password).startWithResult { loginResult in
 					if let error = loginResult.error {
 						sink.send(error: error)
 						return
 					}
-					if let user = loginResult.value?.user {
+					if let user = result.value?.user {
 						do {
 							let mainContextObject = try user.toMainContext(object: user)
 							CoreDataManager.shared.saveContext()
@@ -57,8 +64,8 @@ final class RestaurantsViewModel {
 				sink.send(value: true)
 				sink.sendCompleted()
 			} else {
-				let userInfo = [NSLocalizedDescriptionKey: ""]
-				let error = NSError(domain: ErrorDomains.LocalError, code: 0, userInfo: userInfo)
+				let userInfo = [NSLocalizedDescriptionKey: "Location not found"]
+				let error = NSError(domain: "Location", code: 0, userInfo: userInfo)
 				sink.send(error: error)
 			}
 		}
