@@ -11,25 +11,44 @@ import SwiftyJSON
 import CoreData
 
 final class FoursquareRestaurantsResponse {
-//	var user: User?
+	var restaurants: [Restaurant]?
 }
 
 extension FoursquareRestaurantsResponse: JSONParsing {
 	static func parse (json: JSON, context: NSManagedObjectContext, completionBlock: @escaping ((FoursquareRestaurantsResponse?, NSError?) -> Void)) {
-//		let responseObject = SignUpResponse()
-//		if json[APIKeys.Message].error != nil {
-//			User.parse(json: json, context: context, completionBlock: { (user, error) in
-//				if let user = user {
-//					responseObject.user = user
-//					completionBlock(responseObject, nil)
-//				} else {
-//					completionBlock(nil, error)
-//				}
-//			})
-//		} else {
-//			let userInfo = [NSLocalizedDescriptionKey: json[APIKeys.Message].stringValue]
-//			let error = NSError(domain: "", code: 0, userInfo: userInfo)
-//			completionBlock(nil, error)
-//		}
+		let responseObject = FoursquareRestaurantsResponse()
+		
+
+		guard let result = json.dictionaryObject! as? [String: Any], let responseData = result["response"] as? [String: Any] else {
+			let error = NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "Not able to parse"])
+			completionBlock(nil, error)
+			return
+		}
+		guard let groups = responseData["groups"] as? [[String: Any]] else {
+			let error = NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "Not able to parse"])
+			completionBlock(nil, error)
+			return
+			
+		}
+		guard let groupsFirstObject = groups.first else {
+			let error = NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "Not able to parse"])
+			completionBlock(nil, error)
+			return
+		}
+		guard let items = groupsFirstObject["items"] as? [[String: Any]] else {
+			let error = NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "Not able to parse"])
+			completionBlock(nil, error)
+			return
+		}
+		
+		print("fetchFoursquareVenues response : \(items)")
+		var restaurants = [Restaurant]()
+		for item in items {
+			let restaurant = Restaurant(data: item)
+			restaurants.append(restaurant)
+		}
+		print("restaurants : \(restaurants)")
+		responseObject.restaurants = restaurants
+		completionBlock(responseObject, nil)
 	}
 }
