@@ -8,6 +8,7 @@ target :Restaurants do
 	pod 'ReactiveCocoa', '~> 5.0'
 	pod 'Alamofire', '~> 4.3'
 	pod 'PromiseKit', '~> 4.1'
+	pod 'SwiftyJSON', '~> 3.1'
 end
 
 # Do not change the following. This is a workaround for FRAMEWORK_SEARCH_PATHS not containing ${inherited}.

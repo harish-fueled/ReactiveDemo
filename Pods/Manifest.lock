@@ -16,11 +16,13 @@ PODS:
   - ReactiveSwift (1.0.0):
     - Result (~> 3.1)
   - Result (3.1.0)
+  - SwiftyJSON (3.1.4)
 
 DEPENDENCIES:
   - Alamofire (~> 4.3)
   - PromiseKit (~> 4.1)
   - ReactiveCocoa (~> 5.0)
+  - SwiftyJSON (~> 3.1)
 
 SPEC CHECKSUMS:
   Alamofire: 856a113053a7bc9cbe5d6367a555d773fc5cfef7
@@ -28,7 +30,8 @@ SPEC CHECKSUMS:
   ReactiveCocoa: 60ef0da915b4f70c34ebecc3f4fb8f96af0e53d6
   ReactiveSwift: f391724ee318a2cfd3e37dfb041cd49ecf4e7869
   Result: 4e3ed5995ed94d0cd6a09be9a431fce3f3624bbf
+  SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: 381f5c61bcc83797e8b15ef84391e1127fe9f1d6
+PODFILE CHECKSUM: 3ada0114996b1e28b246ddc29a5ab78eacdc2826
 
 COCOAPODS: 1.2.0.beta.3
