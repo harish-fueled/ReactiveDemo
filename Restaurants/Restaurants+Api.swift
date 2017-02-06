@@ -27,7 +27,7 @@ extension Restaurant {
 				return Promise(error: APIError.BadStatusCode(statusCode: 1000, message: "Not able to parse"))
 
 			}
-			guard let groupsFirstObject = groups.first! as? [String: Any] else {
+			guard let groupsFirstObject = groups.first else {
 				return Promise(error: APIError.BadStatusCode(statusCode: 1000, message: "Not able to parse"))
 			}
 			guard let items = groupsFirstObject["items"] as? [[String: Any]] else {
