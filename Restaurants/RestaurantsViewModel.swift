@@ -10,8 +10,13 @@ import ReactiveSwift
 
 final class RestaurantsViewModel {
 	var dataSource = [Restaurant]()
-	
-	func fetchFoursquareVenues() -> SignalProducer<[Restaurant], NSError> {
+	let disposable = CompositeDisposable()
+
+	deinit {
+		self.disposable.dispose()
+	}
+
+	func fetchFoursquareRestaurants() -> SignalProducer<[Restaurant], NSError> {
 		return SignalProducer { sink, disposable in
 			self.validateLocation().startWithResult { result in
 				guard let isValid = result.value, isValid else {

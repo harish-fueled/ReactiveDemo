@@ -7,26 +7,35 @@
 //
 
 import UIKit
+import ReactiveSwift
 
 class RestaurantsViewController: UIViewController {
 
 	@IBOutlet weak var tableView: UITableView!
 	
 	fileprivate var dataSource = [Restaurant]()
-	
+	var viewModel = RestaurantsViewModel()
+	var disposable = CompositeDisposable()
+
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		// Do any additional setup after loading the view, typically from a nib.
 		configureTableView()
-		let _ = Restaurant.fetchFoursquareVenues().then { restaurants -> Void in
-			self.dataSource = restaurants
-			self.tableView.reloadData()
-		}
+		fetchFoursquareRestaurants()
 	}
 	
 	private func configureTableView() {
 		tableView.dataSource = self
 		tableView.delegate = self
+	}
+	
+	func fetchFoursquareRestaurants() {
+		self.disposable += self.viewModel.fetchFoursquareRestaurants().on(failed: { error in
+			print("Failed fetching restaurants : \(error)")
+			}, value: { [weak self] response in
+				self?.dataSource = response
+				self?.tableView.reloadData()
+		}).start()
 	}
 }
 
