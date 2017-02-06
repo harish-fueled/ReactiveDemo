@@ -19,7 +19,7 @@ extension FoursquareRestaurantsResponse: JSONParsing {
 		let responseObject = FoursquareRestaurantsResponse()
 		
 
-		guard let result = json.dictionaryObject! as? [String: Any], let responseData = result["response"] as? [String: Any] else {
+		guard let result = json.dictionaryObject, let responseData = result["response"] as? [String: Any] else {
 			let error = NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "Not able to parse"])
 			completionBlock(nil, error)
 			return

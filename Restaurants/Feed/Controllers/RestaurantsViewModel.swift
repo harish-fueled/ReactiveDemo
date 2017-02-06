@@ -44,7 +44,7 @@ final class RestaurantsViewModel {
 		return SignalProducer { (sink, disposable) in
 			//we can check here if the user granted permission for location, it is true by default now for learnig purpose
 			var isValid = true
-			if isValid{
+			if isValid {
 				sink.send(value: true)
 				sink.sendCompleted()
 			} else {
