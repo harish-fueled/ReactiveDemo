@@ -19,5 +19,68 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Restaurants/Feed/Controllers/RestaurantsViewController.swift"
+            timestampString = "508151853.535063"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "17"
+            endingLineNumber = "17"
+            landmarkName = "RestaurantsViewController"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Restaurants.RestaurantsViewController.viewModels.getter : ReactiveSwift.MutableProperty&lt;Swift.Optional&lt;Swift.Array&lt;Restaurants.RestaurantViewModel&gt;&gt;&gt;"
+                  moduleName = "Restaurants"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/HarishSaini/Desktop/clients/Restaurants/Restaurants/Feed/Controllers/RestaurantsViewController.swift"
+                  timestampString = "508151857.09173"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "17"
+                  endingLineNumber = "17"
+                  offsetFromSymbolStart = "35">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Restaurants.RestaurantsViewController.init (nibName : Swift.Optional&lt;Swift.String&gt;, bundle : Swift.Optional&lt;__ObjC.Bundle&gt;) -&gt; Restaurants.RestaurantsViewController"
+                  moduleName = "Restaurants"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/HarishSaini/Desktop/clients/Restaurants/Restaurants/Feed/Controllers/RestaurantsViewController.swift"
+                  timestampString = "508151857.097251"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "17"
+                  endingLineNumber = "17"
+                  offsetFromSymbolStart = "172">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Restaurants.RestaurantsViewController.init (coder : __ObjC.NSCoder) -&gt; Swift.Optional&lt;Restaurants.RestaurantsViewController&gt;"
+                  moduleName = "Restaurants"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/HarishSaini/Desktop/clients/Restaurants/Restaurants/Feed/Controllers/RestaurantsViewController.swift"
+                  timestampString = "508151857.098682"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "17"
+                  endingLineNumber = "17"
+                  offsetFromSymbolStart = "104">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

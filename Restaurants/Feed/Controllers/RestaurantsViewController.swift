@@ -10,13 +10,12 @@ import UIKit
 import ReactiveSwift
 
 class RestaurantsViewController: UIViewController {
-
+	
 	@IBOutlet weak var tableView: UITableView!
 	
-	fileprivate var dataSource = [Restaurant]()
-	var viewModel = RestaurantsViewModel()
 	var disposable = CompositeDisposable()
-
+	var viewModels: MutableProperty<[RestaurantViewModel]?> = MutableProperty(nil)
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		// Do any additional setup after loading the view, typically from a nib.
@@ -30,31 +29,33 @@ class RestaurantsViewController: UIViewController {
 	}
 	
 	func fetchFoursquareRestaurants() {
-		self.disposable += self.viewModel.fetchFoursquareRestaurants().on(failed: { error in
-			print("Failed fetching restaurants : \(error)")
-			}, value: { [weak self] response in
-				self?.dataSource = response
+		APIInterface.shared.fetchFoursquareRestaurants().startWithResult { [weak self]result in
+			if let error = result.error {
+				print("error occurred \(error)")
+			} else if let restaurants = result.value?.restaurants {
+				self?.viewModels.value = restaurants.map { RestaurantViewModel(restaurant: $0) }
 				self?.tableView.reloadData()
-		}).start()
+			}
+		}
 	}
 }
 
 extension RestaurantsViewController: UITableViewDataSource {
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return dataSource.count
+		return viewModels.value?.count ?? 0
 	}
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: RestaurantTableViewCell.identifier, for: indexPath) as! RestaurantTableViewCell
-		let restaurant = dataSource[indexPath.row]
-		cell.configure(restaurant: restaurant)
+		let restaurantViewModel = viewModels.value?[indexPath.row]
+		cell.configure(restaurantVieModel: restaurantViewModel!)
 		return cell
 	}
 }
 
 extension RestaurantsViewController: UITableViewDelegate {
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		let restaurant = dataSource[indexPath.row]
-		print("Selected Restaurant : \(restaurant)")
+		let restaurantViewModel = viewModels.value?[indexPath.row]
+		print("Selected Restaurant : \(restaurantViewModel!.name)")
 	}
 }

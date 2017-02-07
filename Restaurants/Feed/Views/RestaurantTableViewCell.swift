@@ -18,7 +18,7 @@ class RestaurantTableViewCell: UITableViewCell {
         // Initialization code
     }
 	
-	func configure(restaurant: Restaurant) {
-		titleLabel.text = restaurant.name.capitalized
+	func configure(restaurantVieModel: RestaurantViewModel) {
+		titleLabel.text = restaurantVieModel.name.capitalized
 	}
 }
